@@ -1,0 +1,17 @@
+- name: Playbook
+  hosts: all
+  collections:
+    - community.docker
+  tasks:
+    - name: Start service docker, if not
+      ansible.builtin.service:
+        name: docker
+        state: started    
+    - name: Pull an image
+      community.docker.docker_image_pull:
+        name: fluentd        
+        platform: amd64
+        tag: v1.17-1
+        timeout: 60
+        pull: not_present
+
