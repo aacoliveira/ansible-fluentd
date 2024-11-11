@@ -7,11 +7,19 @@
       ansible.builtin.service:
         name: docker
         state: started    
-    - name: Pull an image
+    - name: Pull fluentd
       community.docker.docker_image_pull:
         name: fluentd        
         platform: amd64
         tag: v1.17-1
         timeout: 60
         pull: not_present
-
+    - name: Start fluentd
+      community.docker.docker_container:
+        name: fluentd-ansible
+        image: fluentd:v1.17-1      
+        state: started
+        ports:
+          - 24224:24224
+        # volumes:
+        #   - /tmp:/tmp
