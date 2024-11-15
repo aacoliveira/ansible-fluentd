@@ -14,6 +14,13 @@
         tag: v1.17-1
         timeout: 60
         pull: not_present
+    - name: Copy conf file
+      ansible.builtin.copy:
+        src: ./fluentd-file/fluentd.conf
+        dest: /root/fluentd.conf
+        owner: root
+        group: root
+        mode: '0644'        
     - name: Start fluentd
       community.docker.docker_container:
         name: fluentd-ansible
@@ -21,5 +28,5 @@
         state: started
         ports:
           - 24224:24224
-        # volumes:
-        #   - /tmp:/tmp
+        volumes:
+          - /root/fluentd.conf:/fluentd/etc/fluentd.conf
