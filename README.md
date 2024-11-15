@@ -1,4 +1,4 @@
-# Deployubg Fluentd with Ansible
+# Deploying Fluentd with Ansible
 
 ## Version
 
